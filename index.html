@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuoteCraft - Professional Quote Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-image {
+            height: 180px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-image img {
+            transform: scale(1.05);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-image {
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .step:hover .step-image img {
+            transform: scale(1.05);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .step p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Quote Builder Section */
+        .quote-builder {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .builder-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 60px;
+        }
+
+        .builder-form {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .line-items {
+            margin-top: 35px;
+        }
+
+        .line-items h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.3rem;
+        }
+
+        .line-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            align-items: center;
+        }
+
+        .line-item input {
+            flex: 1;
+        }
+
+        .btn-remove {
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-remove:hover {
+            background: #dc2626;
+        }
+
+        .btn-add {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn-add:hover {
+            background: #059669;
+        }
+
+        .quote-preview {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .quote-header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
+
+        .quote-header h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        .quote-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .quote-header > div:last-child {
+            margin-top: 15px;
+        }
+
+        .quote-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+
+        .quote-table th, .quote-table td {
+            padding: 15px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .quote-table th {
+            background: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .quote-total {
+            text-align: right;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+            color: var(--primary);
+        }
+
+        .quote-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 25px;
+            color: var(--dark);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary);
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            opacity: 0.2;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+
+        .cta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%);
+            z-index: -1;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 35px;
+            opacity: 0.95;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .builder-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero {
+                padding: 80px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .line-item {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .line-item input {
+                width: 100%;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .features, .how-it-works, .quote-builder, .testimonials, .cta-section {
+                padding: 70px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .feature-card, .builder-form, .quote-preview, .testimonial-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-file-invoice-dollar"></i>
+                QuoteCraft
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#builder">Quote Builder</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                </ul>
+            </nav>
+            <button class="cta-button">Get Started</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1>Create Professional Quotes in Minutes</h1>
+            <p>QuoteCraft helps freelancers and small businesses generate beautiful, accurate quotes and estimates quickly and easily.</p>
+            <div class="hero-buttons">
+                <a href="#builder" class="btn btn-primary">Create Your First Quote</a>
+                <a href="#" class="btn btn-outline">View Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features</h2>
+                <p>Everything you need to create professional quotes that impress clients and win more business.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Easy to Use">
+                    </div>
+                    <h3>Easy to Use</h3>
+                    <p>Intuitive interface that makes creating quotes a breeze, even for beginners.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Customizable Templates">
+                    </div>
+                    <h3>Customizable Templates</h3>
+                    <p>Professional templates that you can customize to match your brand identity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://media.istockphoto.com/id/1050855204/photo/robot-examining-financial-report-with-calculator.jpg?s=612x612&w=0&k=20&c=xYrEvqpk0RwK0WPscM88brw3wC5XgutUWdg3MNCaGQo=" alt="Automatic Calculations">
+                    </div>
+                    <h3>Automatic Calculations</h3>
+                    <p>Let our system handle all the math with automatic totals, taxes, and discounts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://i.ibb.co.com/4ZCKCx3s/Website-mockup-and-illustrations.jpg" alt="PDF Export">
+                    </div>
+                    <h3>PDF Export</h3>
+                    <p>Download your quotes as professional PDF documents to share with clients.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://www.shutterstock.com/image-photo/cloud-service-files-storage-transfer-600nw-2492224549.jpg" alt="Cloud Storage">
+                    </div>
+                    <h3>Cloud Storage</h3>
+                    <p>All your quotes are securely stored in the cloud and accessible from any device.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_SC-tz279cel43GFIjeba2TxUddGaiD6rbg&s" alt="Mobile Friendly">
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Create and manage quotes on the go with our fully responsive mobile interface.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Creating professional quotes has never been easier. Follow these simple steps to get started.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHEZR2jUM0e723FDPpgxgWEKJ2SW9HECF6KA&s" alt="Enter Project Details">
+                    </div>
+                    <div class="step-number">1</div>
+                    <h3>Enter Project Details</h3>
+                    <p>Fill in your client information and project description to get started.</p>
+                </div>
+                <div class="step">
+                    <div class="step-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Add Line Items">
+                    </div>
+                    <div class="step-number">2</div>
+                    <h3>Add Line Items</h3>
+                    <p>Add products or services with quantities and prices. Our calculator does the math.</p>
+                </div>
+                <div class="step">
+                    <div class="step-image">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Customize & Preview">
+                    </div>
+                    <div class="step-number">3</div>
+                    <h3>Customize & Preview</h3>
+                    <p>Personalize your quote with your logo, colors, and terms. Preview before sending.</p>
+                </div>
+                <div class="step">
+                    <div class="step-image">
+                        <img src="https://i.ibb.co.com/KjN33vH6/Website-mockup-and-illustrations1.jpg" alt="Send or Download">
+                    </div>
+                    <div class="step-number">4</div>
+                    <h3>Send or Download</h3>
+                    <p>Share your quote via email or download as a PDF. Track when clients view it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Builder -->
+    <section class="quote-builder" id="builder">
+        <div class="container">
+            <div class="section-title">
+                <h2>Quote Builder</h2>
+                <p>Try our quote builder right now and see how easy it is to create professional quotes.</p>
+            </div>
+            <div class="builder-container">
+                <div class="builder-form">
+                    <h3>Quote Details</h3>
+                    <div class="form-group">
+                        <label for="quote-title">Quote Title</label>
+                        <input type="text" id="quote-title" class="form-control" placeholder="e.g. Website Redesign Project">
+                    </div>
+                    <div class="form-group">
+                        <label for="client-name">Client Name</label>
+                        <input type="text" id="client-name" class="form-control" placeholder="Client Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="client-email">Client Email</label>
+                        <input type="email" id="client-email" class="form-control" placeholder="client@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="project-desc">Project Description</label>
+                        <textarea id="project-desc" class="form-control" rows="3" placeholder="Brief description of the project..."></textarea>
+                    </div>
+                    
+                    <div class="line-items">
+                        <h3>Line Items</h3>
+                        <div id="line-items-container">
+                            <div class="line-item">
+                                <input type="text" class="form-control item-name" placeholder="Item name">
+                                <input type="number" class="form-control item-qty" placeholder="Qty" value="1">
+                                <input type="number" class="form-control item-price" placeholder="Price">
+                                <button class="btn-remove"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <button id="add-item" class="btn-add"><i class="fas fa-plus"></i> Add Item</button>
+                    </div>
+                </div>
+                
+                <div class="quote-preview">
+                    <div class="quote-header">
+                        <h2>Quote</h2>
+                        <div class="quote-meta">
+                            <div>Quote #: <span id="quote-number">QC-2023-001</span></div>
+                            <div>Date: <span id="quote-date">Oct 15, 2023</span></div>
+                        </div>
+                        <div>
+                            <strong>To:</strong> <span id="preview-client">Client Name</span><br>
+                            <strong>Email:</strong> <span id="preview-email">client@example.com</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <strong>Project:</strong> <span id="preview-title">Quote Title</span>
+                    </div>
+                    
+                    <table class="quote-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="preview-items">
+                            <tr>
+                                <td>Item name</td>
+                                <td>1</td>
+                                <td>$0.00</td>
+                                <td>$0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="quote-total">
+                        Total: <span id="preview-total">$0.00</span>
+                    </div>
+                    
+                    <div class="quote-actions">
+                        <button class="btn btn-primary">Send Quote</button>
+                        <button class="btn btn-outline">Download PDF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Users Say</h2>
+                <p>Join thousands of freelancers and businesses who trust QuoteCraft for their quoting needs.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "QuoteCraft has saved me hours every week. Creating professional quotes used to be a chore, now it's done in minutes."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://media.istockphoto.com/id/1413766112/photo/successful-mature-businessman-looking-at-camera-with-confidence.jpg?s=612x612&w=0&k=20&c=NJSugBzNuZqb7DJ8ZgLfYKb3qPr2EJMvKZ21Sj5Sfq4=" alt="Jane Doe">
+                        </div>
+                        <div class="author-info">
+                            <h4>Jane Doe</h4>
+                            <p>Freelance Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The templates are beautiful and the automatic calculations are a lifesaver. My clients are impressed with the professionalism."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Mike Smith">
+                        </div>
+                        <div class="author-info">
+                            <h4>Mike Smith</h4>
+                            <p>Contractor</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "I've tried other quote tools but QuoteCraft is by far the easiest to use. The mobile app means I can create quotes on the go."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Sarah Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Marketing Consultant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-overlay"></div>
+        <div class="container cta-content">
+            <h2>Ready to Create Your First Quote?</h2>
+            <p>Join thousands of professionals who use QuoteCraft to create beautiful quotes in minutes.</p>
+            <a href="#builder" class="btn btn-primary">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>QuoteCraft</h3>
+                    <p>The easiest way to create professional quotes and estimates for your business.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Templates</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 QuoteCraft || Developed By WebDevTaslima || All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Quote Builder Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const addBtn = document.getElementById('add-item');
+            const container = document.getElementById('line-items-container');
+            const previewItems = document.getElementById('preview-items');
+            const previewTotal = document.getElementById('preview-total');
+            
+            // Add line item
+            addBtn.addEventListener('click', function() {
+                const lineItem = document.createElement('div');
+                lineItem.className = 'line-item';
+                lineItem.innerHTML = `
+                    <input type="text" class="form-control item-name" placeholder="Item name">
+                    <input type="number" class="form-control item-qty" placeholder="Qty" value="1">
+                    <input type="number" class="form-control item-price" placeholder="Price">
+                    <button class="btn-remove"><i class="fas fa-times"></i></button>
+                `;
+                container.appendChild(lineItem);
+                
+                // Add event listeners to new inputs
+                addInputListeners(lineItem);
+            });
+            
+            // Remove line item
+            container.addEventListener('click', function(e) {
+                if (e.target.closest('.btn-remove')) {
+                    const lineItem = e.target.closest('.line-item');
+                    lineItem.remove();
+                    updatePreview();
+                }
+            });
+            
+            // Add input listeners to existing items
+            document.querySelectorAll('.line-item').forEach(item => {
+                addInputListeners(item);
+            });
+            
+            // Update preview when form inputs change
+            document.getElementById('quote-title').addEventListener('input', function() {
+                document.getElementById('preview-title').textContent = this.value || 'Quote Title';
+            });
+            
+            document.getElementById('client-name').addEventListener('input', function() {
+                document.getElementById('preview-client').textContent = this.value || 'Client Name';
+            });
+            
+            document.getElementById('client-email').addEventListener('input', function() {
+                document.getElementById('preview-email').textContent = this.value || 'client@example.com';
+            });
+            
+            function addInputListeners(lineItem) {
+                const inputs = lineItem.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.addEventListener('input', updatePreview);
+                });
+            }
+            
+            function updatePreview() {
+                const lineItems = document.querySelectorAll('.line-item');
+                let total = 0;
+                
+                // Clear preview items
+                previewItems.innerHTML = '';
+                
+                lineItems.forEach(item => {
+                    const name = item.querySelector('.item-name').value || 'Item name';
+                    const qty = parseFloat(item.querySelector('.item-qty').value) || 0;
+                    const price = parseFloat(item.querySelector('.item-price').value) || 0;
+                    const itemTotal = qty * price;
+                    total += itemTotal;
+                    
+                    // Add to preview
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${name}</td>
+                        <td>${qty}</td>
+                        <td>$${price.toFixed(2)}</td>
+                        <td>$${itemTotal.toFixed(2)}</td>
+                    `;
+                    previewItems.appendChild(row);
+                });
+                
+                // Update total
+                previewTotal.textContent = `$${total.toFixed(2)}`;
+            }
+            
+            // Initialize preview
+            updatePreview();
+        });
+    </script>
+</body>
+</html>
